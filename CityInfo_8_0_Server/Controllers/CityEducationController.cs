@@ -28,7 +28,7 @@ using CityInfo_8_0_Server.Hubs;
 // CityController.cs controller filen. Den udvidede kode er først og fremmest
 // medtaget for læringens skyld. Dette forstået på den måde at man som elev kan gå
 // ind i controlleren her og se forskellige måder at gøre ting på. 
-// Deraf navnet på filen => CityEducationController.cs
+// Deraf navnet på filen => CityEducationController.cs .
 
 namespace CityInfo_8_0_Server.Controllers
 {
