@@ -94,8 +94,8 @@ namespace CityInfo_8_0_TestSetup.Assertions
 
         public static bool AreObjectsEqualByFields<T>(T obj1, T obj2, bool compareLists = false, int NumberOfElementsToCheck = 0)
         {
-            dynamic obj1Dynamic = obj1;
-            dynamic obj2Dynamic = obj2;
+            dynamic ?obj1Dynamic = obj1;
+            dynamic ?obj2Dynamic = obj2;
 
             if (obj1Dynamic is null || obj2Dynamic is null)
             {

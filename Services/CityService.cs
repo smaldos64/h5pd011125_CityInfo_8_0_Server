@@ -46,7 +46,7 @@ namespace Services
 
                 return (NumberOfObjectsChanged);
             }
-            catch (Exception Error)
+            catch (Exception)
             {
                 return (0);
             }

@@ -118,7 +118,7 @@ namespace Repository
 
                 return (true);
             }
-            catch (Exception Error)
+            catch (Exception)
             {
                 return (false);
             }
@@ -142,7 +142,7 @@ namespace Repository
 
                 return (true);
             }
-            catch (Exception Error)
+            catch (Exception)
             {
                 return (false);
             }
