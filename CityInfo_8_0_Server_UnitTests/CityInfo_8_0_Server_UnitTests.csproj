@@ -1,0 +1,75 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;8602;2020</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;8602;xUnit2020</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Assertions\**" />
+    <Compile Remove="Database\**" />
+    <Compile Remove="Setup\**" />
+    <Compile Remove="ViewModels\**" />
+    <EmbeddedResource Remove="Assertions\**" />
+    <EmbeddedResource Remove="Database\**" />
+    <EmbeddedResource Remove="Setup\**" />
+    <EmbeddedResource Remove="ViewModels\**" />
+    <None Remove="Assertions\**" />
+    <None Remove="Database\**" />
+    <None Remove="Setup\**" />
+    <None Remove="ViewModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\CityController_UnitTest.cs" />
+    <Compile Remove="RepositoryLayerTest\CityRepositoryTest.cs" />
+    <Compile Remove="RepositoryLayerTest\CityRepositoryTest1.cs" />
+    <Compile Remove="RepositoryLayerTest\CityRepositoryTest2.cs" />
+    <Compile Remove="RepositoryLayerTest\CityRepositoryTest3.cs" />
+    <Compile Remove="RepositoryLayerTest\CityRepositoryTest4.cs" />
+    <Compile Remove="RepositoryLayerTest\CityRepositoryTest5.cs" />
+    <Compile Remove="RepositoryLayerTest\CityRepositoryTestUseMocking.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
+    <PackageReference Include="Moq" Version="4.20.70" />
+    <PackageReference Include="Moq.EntityFrameworkCore" Version="8.0.1.2" />
+    <PackageReference Include="xunit" Version="2.6.6" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.collector" Version="6.0.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CityInfo_8_0_Server\CityInfo_8_0_Server.csproj" />
+    <ProjectReference Include="..\CityInfo_8_0_TestSetup\CityInfo_8_0_TestSetup.csproj" />
+    <ProjectReference Include="..\Entities\Entities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
+</Project>
