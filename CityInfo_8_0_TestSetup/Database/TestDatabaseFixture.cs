@@ -1,5 +1,6 @@
 ﻿using CityInfo_8_0_TestSetup.Setup;
 using CityInfo_8_0_TestSetup.ViewModels;
+using Contracts;
 using Entities;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -18,13 +19,7 @@ using Xunit.Abstractions;
 
 namespace CityInfo_8_0_TestSetup.Database
 {
-    public class EnvironmentConfiguration
-    {
-        public string ?EnvironmentName { get; set; }
-        public bool IsDevelopment { get; set; }
-        public bool IsProduction { get; set; }
-    }
-    public class TestDatabaseFixture : IClassFixture<CustomWebApplicationFactory>
+    public class TestDatabaseFixture //: IClassFixture<CustomWebApplicationFactory>
     {
         public DatabaseViewModel DatabaseViewModelObject;
         public static string ?ConnectionString;
@@ -34,20 +29,23 @@ namespace CityInfo_8_0_TestSetup.Database
 
         private readonly IConfiguration _configuration;
 
-        private static bool IsDevelopment()
-        { 
-            return (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development");
-        }
+        private ILoggerManager _logger;
+
+        //private static bool IsDevelopment()
+        //{ 
+        //    return (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development");
+        //}
 
         // Kode her bliver kun kaldt én gang for hver Test klasse fil. 
 
-        public TestDatabaseFixture(WebApplicationFactory<Program> factory)
+        //public TestDatabaseFixture(WebApplicationFactory<Program> factory)
+        public TestDatabaseFixture()
         {
-            _client = factory.CreateClient();
+            //_client = factory.CreateClient();
 
 
-            var response = _client.GetAsync("/api/BuildInfo/configuration").Result;
-            response.EnsureSuccessStatusCode();
+            //var response = _client.GetAsync("/api/BuildInfo/configuration").Result;
+            //response.EnsureSuccessStatusCode();
             //_environmentConfiguration = response.Content.ReadAsStream<EnvironmentConfiguration>().Result;
 
 
@@ -66,14 +64,27 @@ namespace CityInfo_8_0_TestSetup.Database
             //    ConnectionString = MyConst.DatabaseConnectionStringRelease;
             //}
 
+            //CustomWebApplicationFactory customWebApplicationFactory = new CustomWebApplicationFactory(factory);
+
             Task.Run(async () =>
             {
                 //lock (_lock)
                 //{
                     if (!_databaseInitialized)
                     {
+                        //CustomWebApplicationFactory customWebApplicationFactory = new CustomWebApplicationFactory();
+                        CustomWebApplicationFactorySetup<Program> factorySetup = new CustomWebApplicationFactorySetup<Program>();
+                        CustomWebApplicationFactory customWebApplicationFactory = new CustomWebApplicationFactory(factorySetup);
+                        if (customWebApplicationFactory.IsDevelopment())
+                        {
+                            ConnectionString = MyConst.DatabaseConnectionStringDevelopment;
+                        }
+                        else
+                        {
+                            ConnectionString = MyConst.DatabaseConnectionStringRelease;
+                        }
                         var context = CreateContext();
-                        if (IsDevelopment())
+                        if (customWebApplicationFactory.IsDevelopment())
                         {
                             await context.Database.EnsureDeletedAsync();
                             await context.Database.EnsureCreatedAsync();

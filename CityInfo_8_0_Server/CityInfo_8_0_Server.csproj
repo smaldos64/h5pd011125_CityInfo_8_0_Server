@@ -10,10 +10,16 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <NoWarn>1701;1702;8600;8602;8618;0618</NoWarn>
+    <DefineConstants>$(DefineConstants);ASPNETCORE_ENVIRONMENT=Development</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <NoWarn>1701;1702;8600;8602;8618;0618</NoWarn>
+    <DefineConstants>$(DefineConstants);ASPNETCORE_ENVIRONMENT=Release</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Production|AnyCPU'">
+    <DefineConstants>$(DefineConstants);ASPNETCORE_ENVIRONMENT=Production</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
