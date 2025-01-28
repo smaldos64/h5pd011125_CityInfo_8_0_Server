@@ -16,9 +16,11 @@ using System.Threading.Tasks;
 
 namespace CityInfo_8_0_Server_UnitTests.ServiceLayerTest
 {
-    public class SqlCityServiceLayerTest : IClassFixture<TestDatabaseFixture>
+    //public class SqlCityServiceLayerTest : IClassFixture<TestDatabaseFixture>
+    public class SqlCityServiceLayerTest : IClassFixture<CustomWebApplicationFactory>
     {
-        private TestDatabaseFixture _fixture { get; }
+        //private TestDatabaseFixture _fixture { get; }
+        private CustomWebApplicationFactory _fixture { get; }
 
         private IRepositoryWrapper _repositoryWrapper;
         private ICityService _cityService;
@@ -27,7 +29,8 @@ namespace CityInfo_8_0_Server_UnitTests.ServiceLayerTest
         private DatabaseViewModel _databaseViewModel;
         private DatabaseContext _context;
 
-        public SqlCityServiceLayerTest(TestDatabaseFixture fixture)
+        //public SqlCityServiceLayerTest(TestDatabaseFixture fixture)
+        public SqlCityServiceLayerTest(CustomWebApplicationFactory fixture)
         {
             this._fixture = fixture;
            

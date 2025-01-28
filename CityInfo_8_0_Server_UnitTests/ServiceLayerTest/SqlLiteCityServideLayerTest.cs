@@ -19,7 +19,7 @@ using CityInfo_8_0_TestSetup.ViewModels;
 
 namespace CityInfo_8_0_Server_UnitTests.ServiceLayerTest
 {
-    public class SqLiteCityServideLayerTest : IDisposable
+    public class SqlLiteCityServideLayerTest : IDisposable
     {
         private DbConnection _connection;
         private DbContextOptions<DatabaseContext> _contextOptions;
@@ -29,7 +29,7 @@ namespace CityInfo_8_0_Server_UnitTests.ServiceLayerTest
         private IPointOfInterestService _pointOfInterestService;
         private DatabaseViewModel _databaseViewModel;
 
-        public SqLiteCityServideLayerTest()
+        public SqlLiteCityServideLayerTest()
         {
             Task.Run(async () =>
             {

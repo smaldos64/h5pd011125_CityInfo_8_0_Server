@@ -1,6 +1,7 @@
 ﻿using CityInfo_8_0_TestSetup.Setup;
 using CityInfo_8_0_TestSetup.ViewModels;
 using Entities;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.Web.CodeGeneration;
@@ -10,17 +11,26 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using Xunit;
+using Xunit.Abstractions;
+
+
 
 namespace CityInfo_8_0_TestSetup.Database
 {
-    public class TestDatabaseFixture
+    public class EnvironmentConfiguration
+    {
+        public string ?EnvironmentName { get; set; }
+        public bool IsDevelopment { get; set; }
+        public bool IsProduction { get; set; }
+    }
+    public class TestDatabaseFixture : IClassFixture<CustomWebApplicationFactory>
     {
         public DatabaseViewModel DatabaseViewModelObject;
         public static string ?ConnectionString;
-        //public const string ConnectionString = "Server=(localdb)\\mssqllocaldb;Database=CityInfoDB_Core_8_0_Module_Test;User ID=ltpe2;Password=buchwald34";
-        //public const string ConnectionString = "Server=sql.itcn.dk;Database=ltpe5.TCAA;User ID=ltpe.TCAA;Password=5uF68R0Tbt;TrustServerCertificate=True";
-        private static readonly object _lock = new();
         private static bool _databaseInitialized;
+        private readonly HttpClient _client;
+        private readonly EnvironmentConfiguration _environmentConfiguration;
 
         private readonly IConfiguration _configuration;
 
@@ -31,22 +41,30 @@ namespace CityInfo_8_0_TestSetup.Database
 
         // Kode her bliver kun kaldt én gang for hver Test klasse fil. 
 
-        public TestDatabaseFixture()
+        public TestDatabaseFixture(WebApplicationFactory<Program> factory)
         {
-            if (IsDevelopment())
-            {
-                ConnectionString = MyConst.DatabaseConnectionStringDevelopment;
-                //var builder = new ConfigurationBuilder()
-                //    .SetBasePath(System.IO.Directory.GetCurrentDirectory())
-                //    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-                //_configuration = builder.Build();
-                //DatabaseContext.SQLConnectionString = _configuration.GetConnectionString("cityInfoDBConnectionString");
-            }
-            else
-            {
-                //DatabaseContext.SQLConnectionString = ConnectionString;
-                ConnectionString = MyConst.DatabaseConnectionStringRelease;
-            }
+            _client = factory.CreateClient();
+
+
+            var response = _client.GetAsync("/api/BuildInfo/configuration").Result;
+            response.EnsureSuccessStatusCode();
+            //_environmentConfiguration = response.Content.ReadAsStream<EnvironmentConfiguration>().Result;
+
+
+            //if (IsDevelopment())
+            //{
+            //    ConnectionString = MyConst.DatabaseConnectionStringDevelopment;
+            //    //var builder = new ConfigurationBuilder()
+            //    //    .SetBasePath(System.IO.Directory.GetCurrentDirectory())
+            //    //    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+            //    //_configuration = builder.Build();
+            //    //DatabaseContext.SQLConnectionString = _configuration.GetConnectionString("cityInfoDBConnectionString");
+            //}
+            //else
+            //{
+            //    //DatabaseContext.SQLConnectionString = ConnectionString;
+            //    ConnectionString = MyConst.DatabaseConnectionStringRelease;
+            //}
 
             Task.Run(async () =>
             {

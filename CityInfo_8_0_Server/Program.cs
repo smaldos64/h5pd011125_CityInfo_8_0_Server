@@ -79,11 +79,13 @@ if (app.Environment.IsDevelopment())
 {
   app.UseSwagger();
   app.UseSwaggerUI();
+  Console.WriteLine("Running in Development Mode");
 }
 else // LTPE
 {
   app.UseSwagger();
   app.UseSwaggerUI();
+  Console.WriteLine("Running in Release Mode");
 }
 
 app.UseHttpsRedirection();

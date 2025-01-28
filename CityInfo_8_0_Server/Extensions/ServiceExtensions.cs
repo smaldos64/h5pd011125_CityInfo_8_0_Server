@@ -40,7 +40,7 @@ namespace CityInfo_8_0_Server.Extensions
     public static void ConfigureMsSqlContext(this IServiceCollection services, IConfiguration config)
     {
       var connectionString = config["ConnectionStrings:cityInfoDBConnectionString"];
-
+      Console.WriteLine("Connection string: " + connectionString);
       services.AddDbContext<DatabaseContext>(o => o.UseSqlServer(connectionString, x => x.MigrationsAssembly("Entities")));
     }
 
