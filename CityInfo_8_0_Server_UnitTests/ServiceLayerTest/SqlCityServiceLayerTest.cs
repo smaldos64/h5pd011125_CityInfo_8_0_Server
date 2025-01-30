@@ -24,7 +24,7 @@ namespace CityInfo_8_0_Server_UnitTests.ServiceLayerTest
 
         private IRepositoryWrapper _repositoryWrapper;
         private ICityService _cityService;
-        private ICityLanguageService _cityLanguage;
+        private ICityLanguageService _cityLanguageService;
         private IPointOfInterestService _pointOfInterestService;
         private DatabaseViewModel _databaseViewModel;
         private DatabaseContext _context;
@@ -34,10 +34,10 @@ namespace CityInfo_8_0_Server_UnitTests.ServiceLayerTest
             this._fixture = fixture;
            
             _repositoryWrapper = new RepositoryWrapper(this._fixture.CreateContext());
-            _cityLanguage = new CityLanguageService(_repositoryWrapper);
+            _cityLanguageService = new CityLanguageService(_repositoryWrapper);
             _pointOfInterestService = new PointOfInterestService(_repositoryWrapper);
             _cityService = new CityService(_repositoryWrapper,
-                                           _cityLanguage,
+                                           _cityLanguageService,
                                            _pointOfInterestService);
         }
 
@@ -58,7 +58,7 @@ namespace CityInfo_8_0_Server_UnitTests.ServiceLayerTest
             bool CompareResult = CustomAssert.AreListOfObjectsEqualByFields<City>(CityList,
                                                                                   this._fixture.DatabaseViewModelObject.CityList,
                                                                                   false);
-            Assert.True(CompareResult);
+            Assert.True(CompareResult, $"Lenght of CityList : {CityList.Count}. Length of this._fixture.DatabaseViewModelObject.CityList {this._fixture.DatabaseViewModelObject.CityList.Count}");
         }
 
     }
