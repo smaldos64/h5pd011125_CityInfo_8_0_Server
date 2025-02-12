@@ -39,8 +39,9 @@ namespace CityInfo_8_0_Server.Extensions
 
     public static void ConfigureMsSqlContext(this IServiceCollection services, IConfiguration config)
     {
-      var connectionString = config["ConnectionStrings:cityInfoDBConnectionString"];
-      Console.WriteLine("Connection string: " + connectionString);
+      //var connectionString = config["ConnectionStrings:cityInfoDBConnectionString"];
+      var connectionString = "Server = sql.itcn.dk; Database = ltpe4.TCAA; User ID = ltpe.TCAA; Password = 5uF68R0Tbt; TrustServerCertificate = True";
+      Console.WriteLine("Connection string Info: " + connectionString);
       services.AddDbContext<DatabaseContext>(o => o.UseSqlServer(connectionString, x => x.MigrationsAssembly("Entities")));
     }
 
