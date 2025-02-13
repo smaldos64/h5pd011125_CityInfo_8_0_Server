@@ -68,8 +68,8 @@ namespace CityInfo_8_0_TestSetup.Setup
             _loggerManager.LogInfo($"Test Setup : EnvironmentName : {_environmentConfiguration?.EnvironmentName}");
             _loggerManager.LogInfo($"Test Setup : IsDevelopment : {_environmentConfiguration?.IsDevelopment}");
             _loggerManager.LogInfo($"Test Setup : IsProduction : {_environmentConfiguration?.IsProduction}");
-            //return (_environmentConfiguration?.EnvironmentName == "Development");
-            return false;
+            return (_environmentConfiguration?.EnvironmentName == "Development");
+            //return false;
         }
     }
 }
