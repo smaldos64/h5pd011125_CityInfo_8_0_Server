@@ -29,9 +29,11 @@ jobs:
 
     - name: Set environment to Production
       run: echo "ASPNETCORE_ENVIRONMENT=Production" >> $GITHUB_ENV
-
+   
     - name: Build the project
       run: dotnet build --no-restore --configuration Release
 
     - name: Run tests
+      env:
+        ASPNETCORE_ENVIRONMENT: Production
       run: dotnet test --no-build --verbosity normal --configuration Release
